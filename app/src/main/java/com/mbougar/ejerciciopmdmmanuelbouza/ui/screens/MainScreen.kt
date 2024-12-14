@@ -50,14 +50,13 @@ import com.mbougar.ejerciciopmdmmanuelbouza.viewmodel.MainViewModel
 @Composable
 fun MainScreen(navController: NavHostController, viewModel: MainViewModel = viewModel()) {
     val search by viewModel.search.observeAsState("")
+
     Column(modifier = Modifier.background(Color(0xFF4CAF50))) {
-        Header(search) { viewModel.onSearchChange(search) }
+        Header(search = search, onSearchChange = { viewModel.onSearchChange(it) })
 
         LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = Modifier.fillMaxWidth()
         ) {
-
             items(viewModel.searchProductos) { producto ->
                 BannerProducto(producto)
             }
@@ -69,33 +68,42 @@ fun MainScreen(navController: NavHostController, viewModel: MainViewModel = view
 fun BannerProducto(producto: Producto) {
     var showDialog by remember { mutableStateOf(false) }
 
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
+    Box(
         modifier = Modifier
             .padding(12.dp)
-            .clickable { showDialog = true }
             .fillMaxWidth()
+            .background(Color.White)
+            .clip(RoundedCornerShape(16.dp))
     ) {
-        Image(
-            painter = painterResource(id = producto.imageRes),
-            contentDescription = "Imagen del producto",
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .size(80.dp)
-                .clip(CircleShape),
-            contentScale = ContentScale.Crop
-        )
-        Spacer(modifier = Modifier.width(8.dp))
+                .padding(12.dp)
+                .clickable { showDialog = true }
+                .fillMaxWidth()
+        ) {
+            Image(
+                painter = painterResource(id = producto.imageRes),
+                contentDescription = "Imagen del producto",
+                modifier = Modifier
+                    .size(80.dp)
+                    .clip(CircleShape),
+                contentScale = ContentScale.Crop
+            )
+            Spacer(modifier = Modifier.width(8.dp))
 
-        Text(
-            text = producto.nombre,
-            fontWeight = FontWeight.Bold
-        )
+            Column {
+                Text(
+                    text = producto.nombre,
+                    fontWeight = FontWeight.Bold
+                )
 
-        Text(
-            text = (producto.precio.toString() + "€"),
-            fontWeight = FontWeight.Bold
-        )
-
+                Text(
+                    text = ("Precio: " + producto.precio.toString() + "€"),
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
     }
 
     if (showDialog) {
@@ -108,7 +116,7 @@ fun BannerProducto(producto: Producto) {
 fun ProductoDialog(producto: Producto, onDismiss: () -> Unit) {
     Dialog(onDismissRequest = onDismiss) {
         Surface(
-            shape = RoundedCornerShape(0.dp),
+            shape = RoundedCornerShape(16.dp),
             modifier = Modifier
                 .width(300.dp)
                 .height(400.dp),
@@ -163,18 +171,16 @@ fun Header(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Row(
-                horizontalArrangement = Arrangement.Start,
-                modifier = Modifier.weight(1f),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                IconButton(onClick = { onSearchChange(search) }) {
+                IconButton(onClick = {  }) {
                     Icon(imageVector = Icons.Filled.Search, contentDescription = "Search")
                 }
 
                 OutlinedTextField(
-                    value = "",
+                    value = search,
                     onValueChange = { onSearchChange(it) },
-                    label = { Text("Buscar") }
+                    label = { Text("Buscar") },
                 )
             }
 

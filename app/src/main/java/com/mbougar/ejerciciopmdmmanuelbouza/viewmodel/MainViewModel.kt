@@ -12,31 +12,31 @@ class MainViewModel : ViewModel() {
     val search: LiveData<String> get() = _search
 
     private val productos = mutableListOf<Producto> (
-        Producto("Manzana", R.drawable.moto_background, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
-        Producto("Pera", R.drawable.moto_background, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
-        Producto("Platano", R.drawable.moto_background, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
-        Producto("Otro", R.drawable.moto_background, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
-        Producto("Manzana", R.drawable.moto_background, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
-        Producto("Manzana", R.drawable.moto_background, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
-        Producto("Manzana", R.drawable.moto_background, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
-        Producto("Manzana", R.drawable.moto_background, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
-        Producto("Manzana", R.drawable.moto_background, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
-        Producto("Manzana", R.drawable.moto_background, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
-        Producto("Manzana", R.drawable.moto_background, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
-        Producto("Manzana", R.drawable.moto_background, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
-        Producto("Manzana", R.drawable.moto_background, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
-        Producto("Manzana", R.drawable.moto_background, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
-        Producto("Manzana", R.drawable.moto_background, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
-        Producto("Manzana", R.drawable.moto_background, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
-        Producto("Manzana", R.drawable.moto_background, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
+        Producto("Manzana", R.drawable.fruta, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
+        Producto("Pera", R.drawable.fruta, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
+        Producto("Platano", R.drawable.fruta, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
+        Producto("Otro", R.drawable.fruta, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
+        Producto("Kiwi", R.drawable.fruta, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
+        Producto("Tomate", R.drawable.fruta, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
+        Producto("Sandia", R.drawable.fruta, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
+        Producto("Mango", R.drawable.fruta, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
+        Producto("Coco", R.drawable.fruta, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
+        Producto("Naranja", R.drawable.fruta, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
+        Producto("Otro", R.drawable.fruta, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
+        Producto("Limon", R.drawable.fruta, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
+        Producto("Otro", R.drawable.fruta, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
+        Producto("Otro", R.drawable.fruta, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
+        Producto("Otro", R.drawable.fruta, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
+        Producto("Otro", R.drawable.fruta, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
+        Producto("Otro", R.drawable.fruta, "Fruta", "Futeria Manolo", 12.4, false, null, "Una Manzana"),
 
     )
 
     var searchProductos = productos
 
-    fun onSearchChange(search: String) {
-        _search.value = search
+    fun onSearchChange(newSearch: String) {
+        _search.value = newSearch
 
-        searchProductos = productos.filter { it.nombre.contains(search) }.toMutableList()
+        searchProductos = productos.filter { it.nombre.lowercase().contains(newSearch.lowercase()) }.toMutableList()
     }
 }
